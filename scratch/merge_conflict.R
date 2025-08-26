@@ -9,7 +9,7 @@ library(flowchart)
 library(patchwork)
 library(paletteer)
 
-BQ1_Merge_Conflict <- read_csv(here("data", "QuebradaCuenca1-Bisley.csv"))
+BQ1_Merge_Conflict_power <- read_csv(here("data", "QuebradaCuenca1-Bisley.csv"))
 BQ2 <- read_csv(here("data", "QuebradaCuenca2-Bisley.csv"))
 BQ3 <- read_csv(here("data", "QuebradaCuenca3-Bisley.csv"))
 prm <- read_csv(here("data", "RioMameyesPuenteRoto.csv"))
