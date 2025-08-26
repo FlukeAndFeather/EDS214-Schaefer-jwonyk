@@ -1,0 +1,50 @@
+---
+title: "Chemistry of Stream Water from the Luquillo Mountains."
+author: "McDowell, William H."
+format: html
+---
+
+Load all the packages we need to use
+```{r setup, include=FALSE}
+library(tidyverse)
+library(janitor)
+library(here)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(usethis)
+library(flowchart)
+```
+
+Loading Files
+```{r}
+BQ1 <- read_csv(here("data", "QuebradaCuenca1-Bisley.csv"))
+BQ2 <- read_csv(here("data", "QuebradaCuenca2-Bisley.csv"))
+BQ3 <- read_csv(here("data", "QuebradaCuenca3-Bisley.csv"))
+prm <- read_csv(here("data", "RioMameyesPuenteRoto.csv"))
+```
+
+Based on the caption of figure 3, write down the steps you think will be necessary to reproduce figure 3.
+Create a flow chart of how the steps fit together. Things to consider include:
+
+How will you get the data into R?
+  - Loading library such as tidyverse & here packages and use `read_csv()` function to get data into R
+  
+How will you clean up the data?
+  - Might require to `group_by()` the years along with each soil types
+  - For example, we will make summary statistics of sum / avg of all the years from 1988 to 2020 potassium, nitrate-N, magnesium, calcium, and ammonium-N concentrations in Puerto Rico streams
+  - Join all BQ1 through BQ3 summarized datasets (join by Sample_Dates?)
+  
+Are any processing or modeling steps required?
+  - Ggplot
+    - x-axis = Years
+    - Y-axis = All the concentrations of minerals
+    - geom_lines() + geom_smooth() + scatterplots 
+    - Specific line for Hurricane Hugo
+    - Facet wrap of each concentrations -> Patchworks
+    - Labels
+    
+  
+What are your outputs?
+  - We should be able to recreate the same visualization of all the information and data that is given by the EDI
+  
