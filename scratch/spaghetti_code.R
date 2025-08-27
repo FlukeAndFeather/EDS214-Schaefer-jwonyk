@@ -1,3 +1,9 @@
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ Recreate the Visualization of the Study related to Hurricane effects on stream chemistry ----
+##    Jay Kim                                                                                  ~~~~
+##    wonyoungkim@ucsb.edu                                                                     
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 library(tidyverse)
 library(janitor)
 library(here)
@@ -8,6 +14,7 @@ library(usethis)
 library(flowchart)
 library(patchwork)
 library(paletteer)
+library(zoo)
 
 BQ1 <- read_csv(here("data", "QuebradaCuenca1-Bisley.csv"))
 BQ2 <- read_csv(here("data", "QuebradaCuenca2-Bisley.csv"))
