@@ -10,7 +10,6 @@
 #'
 #' @examples
 #' ca_ma_once <- moving_average(focal_date, dates, concentration, win_size_wks)
-
 moving_average <- function(focal_date, dates, concentration, win_size_wks) {
   
   # Which dates are in the window?
