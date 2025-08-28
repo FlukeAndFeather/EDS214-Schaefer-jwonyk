@@ -1,0 +1,87 @@
+---
+title: "Data cleaning"
+format: html
+editor: visual
+---
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load in all the necessary and possibly necessary packages
+library(tidyverse)
+library(janitor)
+library(here)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(usethis)
+library(flowchart)
+library(patchwork)
+library(paletteer)
+library(zoo)
+```
+
+```{r}
+# Assign the data to the variable 
+BQ1 <- read_csv(here("data", "QuebradaCuenca1-Bisley.csv")) %>% 
+  clean_names()
+BQ2 <- read_csv(here("data", "QuebradaCuenca2-Bisley.csv")) %>% 
+  clean_names()
+BQ3 <- read_csv(here("data", "QuebradaCuenca3-Bisley.csv")) %>% 
+  clean_names()
+prm <- read_csv(here("data", "RioMameyesPuenteRoto.csv")) %>% 
+  clean_names()
+
+```
+
+
+```{r}
+# Data Cleaning
+BQ1_fig_3 <-  BQ1 %>% 
+  mutate(weeks = lubridate::week(sample_date)) %>% 
+  pivot_longer(cols = c("k", "no3_n", "mg", "ca", "nh4_n"),
+               names_to = "nutrients", values_to = "concentration") %>% 
+  select(sample_date, sample_id, nutrients, concentration, weeks) %>% 
+  ungroup()
+
+BQ2_fig_3 <-  BQ2 %>% 
+  mutate(weeks = lubridate::week(sample_date)) %>% 
+  pivot_longer(cols = c("k", "no3_n", "mg", "ca", "nh4_n"),
+               names_to = "nutrients", values_to = "concentration") %>% 
+  select(sample_date, sample_id, nutrients, concentration, weeks) %>% 
+  ungroup()
+
+BQ3_fig_3 <-  BQ3 %>% 
+  mutate(weeks = lubridate::week(sample_date)) %>% 
+  pivot_longer(cols = c("k", "no3_n", "mg", "ca", "nh4_n"),
+               names_to = "nutrients", values_to = "concentration") %>% 
+  select(sample_date, sample_id, nutrients, concentration, weeks) %>% 
+  ungroup()
+
+prm_fig_3 <-  prm %>% 
+  mutate(weeks = lubridate::week(sample_date)) %>% 
+  pivot_longer(cols = c("k", "no3_n", "mg", "ca", "nh4_n"),
+               names_to = "nutrients", values_to = "concentration") %>% 
+  select(sample_date, sample_id, nutrients, concentration, weeks) %>% 
+  ungroup()
+
+bqprm <- full_join(BQ1_fig_3, BQ2_fig_3) %>%
+  full_join(BQ3_fig_3) %>%
+  full_join(prm_fig_3) %>% 
+  group_by(sample_id, nutrients) %>% 
+  relocate(weeks, .after = sample_date) %>% 
+  mutate(sample_id = as.factor(sample_id), nutrients = as.factor(nutrients)) %>% 
+  mutate(rolling_average = sapply(as.Date(sample_date), moving_average, dates = as.Date(sample_date), concentration = concentration, win_size_wks = 9))
+
+bqprm_k <- bqprm %>% 
+  filter(nutrients == "k")
+bqprm_no3_n <- bqprm %>% 
+  filter(nutrients == "no3_n")
+
+```
+
+```{r}
+# Saving cleaned data frames to a new CSV to data folder (change as needed)
+write.csv(bqprm_k, file = here("data", "bqprm_k.csv"), row.names = FALSE)
+```
+
