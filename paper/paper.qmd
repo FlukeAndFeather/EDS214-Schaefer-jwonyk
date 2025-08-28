@@ -5,7 +5,9 @@ format: html
 author:
   - name: Jay Kim
     email: wonyoungkim@ucsb.edu
-echo: false
+execute: 
+  warning: false
+  echo: false
 ---
 
 # Background
@@ -33,7 +35,6 @@ source(here("R", "moving_average.R"))
 # Data
 
 ```{r}
-#| echo: true
 # Assign the data to the variable 
 BQ1 <- read_csv(here("data", "QuebradaCuenca1-Bisley.csv")) %>% 
   clean_names()

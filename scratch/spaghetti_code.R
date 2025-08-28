@@ -72,9 +72,7 @@ prm_fig_3 <-  prm %>%
 bqprm <- full_join(BQ1_fig_3, BQ2_fig_3) %>%
   full_join(BQ3_fig_3) %>%
   full_join(prm_fig_3) %>% 
-  ungroup()
-
-bqprm_test <- bqprm %>% 
-  mutate(sample_id = as.factor(sample_id), nutrient = as.factor(nutrients))
-  
-  # mutate(rolling_average = moving_average(focal_date, dates, concentration, win_size_wks))
+  group_by(sample_id, nutrients) %>% 
+  relocate(weeks, .after = sample_date) %>% 
+  mutate(sample_id = as.factor(sample_id), nutrients = as.factor(nutrients)) %>% 
+  mutate(rolling_average = sapply(as.Date(sample_date), moving_average, dates = as.Date(sample_date), concentration = concentration, win_size_wks = 9))

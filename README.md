@@ -12,7 +12,9 @@ docs: HTML that holds all the information of finalized products
 
 figs: Data Visualization
 
-R: Code that holds all the functions that are used
+R: Code that holds all the supporting code
+
+paper: This folder holds the finalized analysis script
 
 ### References
 
