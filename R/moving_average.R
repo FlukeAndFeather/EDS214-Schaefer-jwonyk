@@ -20,7 +20,7 @@ moving_average <- function(focal_date, dates, concentration, win_size_wks) {
   window_concentration <- concentration[is_in_window]
   
   # Calculate the mean
-  result <- mean(window_concentration)
+  result <- mean(window_concentration, na.rm = TRUE)
   
   return(result)
   

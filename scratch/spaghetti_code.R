@@ -76,3 +76,9 @@ bqprm <- full_join(BQ1_fig_3, BQ2_fig_3) %>%
   relocate(weeks, .after = sample_date) %>% 
   mutate(sample_id = as.factor(sample_id), nutrients = as.factor(nutrients)) %>% 
   mutate(rolling_average = sapply(as.Date(sample_date), moving_average, dates = as.Date(sample_date), concentration = concentration, win_size_wks = 9))
+
+bqprm_k <- bqprm %>% 
+  filter(nutrients == "k")
+bqprm_no3_n <- bqprm %>% 
+  filter(nutrients == "no3_n")
+
