@@ -1,0 +1,50 @@
+---
+title: "paper"
+date: 2025-08-29
+format: html
+author:
+  - name: Jay Kim
+    email: wonyoungkim@ucsb.edu
+echo: false
+---
+
+# Background
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load in all the necessary and possibly necessary packages
+library(tidyverse)
+library(janitor)
+library(here)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(usethis)
+library(flowchart)
+library(patchwork)
+library(paletteer)
+library(zoo)
+
+# Call in the function from R folder to be used
+source(here("R", "moving_average.R"))
+```
+
+# Data
+
+```{r}
+#| echo: true
+# Assign the data to the variable 
+BQ1 <- read_csv(here("data", "QuebradaCuenca1-Bisley.csv")) %>% 
+  clean_names()
+BQ2 <- read_csv(here("data", "QuebradaCuenca2-Bisley.csv")) %>% 
+  clean_names()
+BQ3 <- read_csv(here("data", "QuebradaCuenca3-Bisley.csv")) %>% 
+  clean_names()
+prm <- read_csv(here("data", "RioMameyesPuenteRoto.csv")) %>% 
+  clean_names()
+```
+
+# Methods
+
+# Results
