@@ -16,7 +16,21 @@ library(patchwork)
 library(paletteer)
 library(zoo)
 
-source(here("R", "moving_average.R"))
+moving_average <- function(focal_date, dates, concentration, win_size_wks) {
+  
+  # Which dates are in the window?
+  is_in_window <- (dates > focal_date - (win_size_wks / 2) * 7) &
+    (dates < focal_date + (win_size_wks / 2) * 7)
+  
+  # Find the associated concentration
+  window_concentration <- concentration[is_in_window]
+  
+  # Calculate the mean
+  result <- mean(window_concentration)
+  
+  return(result)
+  
+}
 
 BQ1 <- read_csv(here("data", "QuebradaCuenca1-Bisley.csv")) %>% 
   clean_names()
@@ -59,4 +73,8 @@ bqprm <- full_join(BQ1_fig_3, BQ2_fig_3) %>%
   full_join(BQ3_fig_3) %>%
   full_join(prm_fig_3) %>% 
   ungroup()
+
+bqprm_test <- bqprm %>% 
+  mutate(sample_id = as.factor(sample_id), nutrient = as.factor(nutrients))
+  
   # mutate(rolling_average = moving_average(focal_date, dates, concentration, win_size_wks))
