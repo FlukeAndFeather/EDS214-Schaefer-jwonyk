@@ -1,72 +1,25 @@
----
-title: "Reproducing Figure 3: Schaefer et al. (2000)"
-subtitle: "EDS 214 — Analytical Workflows & Scientific Reproducibility"
-format: html    
-code-fold: true
-author:
-  - name: Jay Kim
-    email: wonyoungkim@ucsb.edu
-    affiliation: "UC Santa Barbara"
-execute: 
-  warning: false
-  echo: false
----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                                                            --
+##------- THIS SCRIPT WILL CREATE SUBSET CSV FILES FOR OUR ANALYSIS.------------
+##                                                                            --
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Install & Load Packages
 
-```{r}
-# May need to install the following packages
+## May need to install the following packages
 # install.packages("tidyverse")
 # install.packages("janitor")
 # install.packages("here")
 # install.packages("lubridate")
-# install.packages("patchwork")
-# install.packages("paletteer")
 
-# Load in all the necessary packages
+## Load in all necessary packages
 library(tidyverse)
 library(janitor)
 library(here)
 library(tidyr)
 library(dplyr)
 library(lubridate)
-library(patchwork)
-library(paletteer)
-```
 
-# Background
-
-Big storms can damage forests and change what flows in streams; this project re-creates Figure 3 from Schaefer et al. (2000) to show a clear, repeatable analysis.
-
-![Figure 3 from Schaefer et al. (2000)](../figs/original_figure.png){width="549"}
-
-# Data
-
-Weekly stream-water chemistry from the Luquillo Experimental Forest (PRM, BQ1–BQ3) around Hurricane Hugo (1989), focusing on five ions: K, NO₃-N, Mg, Ca, and NH₄-N.
-
-```{r, echo=TRUE}
-# Assign cleaned data to the variable 
-bqprm_k <- read_csv(here("data", "cleaned", "bqprm_k.csv"))
-bqprm_no3_n <- read_csv(here("data", "cleaned", "bqprm_no3_n.csv"))
-bqprm_mg <- read_csv(here("data", "cleaned", "bqprm_mg.csv"))
-bqprm_ca <- read_csv(here("data", "cleaned", "bqprm_ca.csv"))
-bqprm_nh4_n <- read_csv(here("data", "cleaned", "bqprm_nh4_n.csv"))
-```
-
-# Methods
-
-The workflow for this paper consist of: read and clean the CSVs, mark the hurricane date, and plot each ion over time. The goal is to reproducible code.
-
-First we are going to call the function in `R/moving_average` to compute.
-
-```{r, echo=TRUE}
-# Call in the function from R folder to be used
-source(here("R", "moving_average.R"))
-```
-
-All data cleaning has been completed in `R/data_cleaning.R` that includes reshape to long format, add week numbers, join sites, compute 9-week moving averages. Below is the following that has been completed in the `R/data_cleaning.R`.
-
-```{r, eval=FALSE, echo=TRUE}
 # Assign the data to the variable 
 
 ## Load and clean dataset from BQ1 to PRM
@@ -78,6 +31,9 @@ BQ3 <- read_csv(here("data", "raw", "QuebradaCuenca3-Bisley.csv")) %>%
   clean_names()
 prm <- read_csv(here("data", "raw", "RioMameyesPuenteRoto.csv")) %>% 
   clean_names()
+
+## Call in the function from R folder to be used for data wrangling
+source(here("R", "moving_average.R"))
 
 # Data Cleaning
 
@@ -143,12 +99,3 @@ write_csv(bqprm_no3_n, file = here("data", "cleaned", "bqprm_no3_n.csv"))
 write_csv(bqprm_mg, file = here("data", "cleaned", "bqprm_mg.csv"))
 write_csv(bqprm_ca, file = here("data", "cleaned", "bqprm_ca.csv"))
 write_csv(bqprm_nh4_n, file = here("data", "cleaned", "bqprm_nh4_n.csv"))
-```
-
-# Results
-
-The figure should mirror the paper: sharp rises in K, NO₃-N, and NH₄-N right after the hurricane that fade within \~1–2 years, with smaller changes in Mg and Ca; streams differ some, but the overall pattern is the same.
-
-# Reference
-
-Schaefer, Douglas. A., William H. McDowell, Fredrick N. Scatena, and Clyde E. Asbury. 2000. “Effects of Hurricane Disturbance on Stream Water Concentrations and Fluxes in Eight Tropical Forest Watersheds of the Luquillo Experimental Forest, Puerto Rico.” Journal of Tropical Ecology 16 (2): 189–207. https://doi.org/10.1017/s0266467400001358.

@@ -6,6 +6,15 @@ editor: visual
 
 ```{r}
 knitr::opts_chunk$set(echo = TRUE)
+# Install & Load Packages
+
+# May need to install the packages
+# install.packages("tidyverse")
+# install.packages("janitor")
+# install.packages("here")
+# install.packages("lubridate")
+# install.packages("patchwork")
+# install.packages("paletteer")
 
 # Load in all the necessary and possibly necessary packages
 library(tidyverse)
@@ -14,15 +23,12 @@ library(here)
 library(tidyr)
 library(dplyr)
 library(lubridate)
-library(usethis)
-library(flowchart)
-library(patchwork)
-library(paletteer)
-library(zoo)
 ```
 
 ```{r}
 # Assign the data to the variable 
+
+## Load and clean dataset from BQ1 to PRM
 BQ1 <- read_csv(here("data", "QuebradaCuenca1-Bisley.csv")) %>% 
   clean_names()
 BQ2 <- read_csv(here("data", "QuebradaCuenca2-Bisley.csv")) %>% 
@@ -34,9 +40,10 @@ prm <- read_csv(here("data", "RioMameyesPuenteRoto.csv")) %>%
 
 ```
 
-
 ```{r}
 # Data Cleaning
+
+# Reshape BQ1 and PRM data to long format with weeks and nutrient concentrations
 BQ1_fig_3 <-  BQ1 %>% 
   mutate(weeks = lubridate::week(sample_date)) %>% 
   pivot_longer(cols = c("k", "no3_n", "mg", "ca", "nh4_n"),
@@ -65,6 +72,7 @@ prm_fig_3 <-  prm %>%
   select(sample_date, sample_id, nutrients, concentration, weeks) %>% 
   ungroup()
 
+# Combine all datasets and calculate rolling averages for each nutrient
 bqprm <- full_join(BQ1_fig_3, BQ2_fig_3) %>%
   full_join(BQ3_fig_3) %>%
   full_join(prm_fig_3) %>% 
@@ -73,15 +81,26 @@ bqprm <- full_join(BQ1_fig_3, BQ2_fig_3) %>%
   mutate(sample_id = as.factor(sample_id), nutrients = as.factor(nutrients)) %>% 
   mutate(rolling_average = sapply(as.Date(sample_date), moving_average, dates = as.Date(sample_date), concentration = concentration, win_size_wks = 9))
 
+# Filter dataset for the selected nutrients
 bqprm_k <- bqprm %>% 
   filter(nutrients == "k")
 bqprm_no3_n <- bqprm %>% 
   filter(nutrients == "no3_n")
-
+bqprm_mg <- bqprm %>% 
+  filter(nutrients == "mg")
+bqprm_ca <- bqprm %>% 
+  filter(nutrients == "ca")
+bqprm_nh4_n <- bqprm %>% 
+  filter(nutrients == "nh4_n")
 ```
 
 ```{r}
+# Export Data
+
 # Saving cleaned data frames to a new CSV to data folder (change as needed)
 write.csv(bqprm_k, file = here("data", "bqprm_k.csv"), row.names = FALSE)
+write.csv(bqprm_no3_n, file = here("data", "bqprm_no3_n.csv"), row.names = FALSE)
+write.csv(bqprm_mg, file = here("data", "bqprm_mg.csv"), row.names = FALSE)
+write.csv(bqprm_ca, file = here("data", "bqprm_ca.csv"), row.names = FALSE)
+write.csv(bqprm_nh4_n, file = here("data", "bqprm_nh4_n.csv"), row.names = FALSE)
 ```
-
