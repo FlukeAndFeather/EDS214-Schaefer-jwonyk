@@ -3,14 +3,8 @@
 ##----------- THIS SCRIPT WILL CREATE FLOWCHART FOR OUR ANALYSIS.---------------
 ##                                                                            --
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Install & Load Packages
 
-# May need to install the following packages
-# install.packages("tidyverse")
-## install.packages("here")
-# install.packages("DiagrammeR")
-
-# Load in all necessary packages
+## Load in all necessary packages
 library(tidyverse)
 library(here)
 library(DiagrammeR)

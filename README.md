@@ -24,6 +24,15 @@ paper: This folder holds the finalized analysis script
 
 ![](figs/flowchart_final.png)
 
+0.  initialization.R
+    -   This script includes all the packages that needs to be install to run this project.
+1.  data_cleaning.R
+    -   Data cleaning is completed and produce output to output folder from this script.
+2.  plot.R
+    -   This script will produce visualization.
+3.  flowchart_final.R
+    -   This script will generate the flowchart that is used for this README.md
+
 ### Output
 
 ![Figure 3 Replica](figs/fig3_replica.png)

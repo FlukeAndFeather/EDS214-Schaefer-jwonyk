@@ -14,16 +14,9 @@ execute:
 
 # Install & Load Packages
 
-```{r, echo=TRUE}
-## May need to install the following packages
-# install.packages("tidyverse")
-# install.packages("janitor")
-# install.packages("here")
-# install.packages("lubridate")
-# install.packages("ggplot2")
-# install.packages("patchwork")
-# install.packages("paletteer")
+Please check the following script if you do not have all the packages below installed.
 
+```{r, echo=TRUE}
 ## Load in all the necessary packages
 library(tidyverse)
 library(janitor)
@@ -48,11 +41,11 @@ Weekly stream-water chemistry from the Luquillo Experimental Forest (PRM, BQ1–
 
 ```{r, echo=TRUE}
 # Assign cleaned data to the variable 
-bqprm_k <- read_csv(here("data", "cleaned", "bqprm_k.csv"))
-bqprm_no3_n <- read_csv(here("data", "cleaned", "bqprm_no3_n.csv"))
-bqprm_mg <- read_csv(here("data", "cleaned", "bqprm_mg.csv"))
-bqprm_ca <- read_csv(here("data", "cleaned", "bqprm_ca.csv"))
-bqprm_nh4_n <- read_csv(here("data", "cleaned", "bqprm_nh4_n.csv"))
+bqprm_k <- read_csv(here("output", "cleaned", "bqprm_k.csv"))
+bqprm_no3_n <- read_csv(here("output", "cleaned", "bqprm_no3_n.csv"))
+bqprm_mg <- read_csv(here("output", "cleaned", "bqprm_mg.csv"))
+bqprm_ca <- read_csv(here("output", "cleaned", "bqprm_ca.csv"))
+bqprm_nh4_n <- read_csv(here("output", "cleaned", "bqprm_nh4_n.csv"))
 ```
 
 # Methods
@@ -122,7 +115,9 @@ bqprm <- full_join(BQ1_fig_3, BQ2_fig_3) %>%
   group_by(sample_id, nutrients) %>% 
   relocate(weeks, .after = sample_date) %>% 
   mutate(sample_id = as.factor(sample_id), nutrients = as.factor(nutrients)) %>% 
-  mutate(rolling_average = sapply(as.Date(sample_date), moving_average, dates = as.Date(sample_date), concentration = concentration, win_size_wks = 9))
+  mutate(rolling_average = sapply(as.Date(sample_date), 
+                                  moving_average, dates = as.Date(sample_date), 
+                                  concentration = concentration, win_size_wks = 9))
 
 ## Filter dataset for the selected nutrients and years between 1988 to 1995
 bqprm_k <- bqprm %>% 
@@ -143,11 +138,11 @@ bqprm_nh4_n <- bqprm %>%
 
 # Export Data
 ## Saving cleaned data frames to a new CSV to data folder (change as needed)
-write_csv(bqprm_k, file = here("data", "cleaned", "bqprm_k.csv"))
-write_csv(bqprm_no3_n, file = here("data", "cleaned", "bqprm_no3_n.csv"))
-write_csv(bqprm_mg, file = here("data", "cleaned", "bqprm_mg.csv"))
-write_csv(bqprm_ca, file = here("data", "cleaned", "bqprm_ca.csv"))
-write_csv(bqprm_nh4_n, file = here("data", "cleaned", "bqprm_nh4_n.csv"))
+write_csv(bqprm_k, file = here("output", "cleaned", "bqprm_k.csv"))
+write_csv(bqprm_no3_n, file = here("output", "cleaned", "bqprm_no3_n.csv"))
+write_csv(bqprm_mg, file = here("output", "cleaned", "bqprm_mg.csv"))
+write_csv(bqprm_ca, file = here("output", "cleaned", "bqprm_ca.csv"))
+write_csv(bqprm_nh4_n, file = here("output", "cleaned", "bqprm_nh4_n.csv"))
 ```
 
 This is visualization. This won't be running here.
@@ -155,7 +150,7 @@ This is visualization. This won't be running here.
 ```{r, eval=FALSE, echo=TRUE}
 
 hurricane_hugo <- as.Date("1989-09-18")
-p_k <- ggplot(bqprm_k, aes(sample_date, rolling_average, linetype = sample_id)) +
+plot_k <- ggplot(bqprm_k, aes(sample_date, rolling_average, linetype = sample_id)) +
   geom_line(size = 0.4) +
   geom_vline(xintercept = hurricane_hugo, linetype = "dashed", linewidth = 0.5) +
   scale_linetype_manual(values = c("solid","dotted","longdash","dotdash")) +
@@ -168,7 +163,7 @@ p_k <- ggplot(bqprm_k, aes(sample_date, rolling_average, linetype = sample_id)) 
   theme_classic(base_size = 10) +
   theme(panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5))
 
-p_no3 <- ggplot(bqprm_no3_n, aes(sample_date, rolling_average, linetype = sample_id)) +
+plot_no3 <- ggplot(bqprm_no3_n, aes(sample_date, rolling_average, linetype = sample_id)) +
   geom_line(size = 0.4) +
   geom_vline(xintercept = hurricane_hugo, linetype = "dashed", linewidth = 0.5) +
   scale_linetype_manual(values = c("solid","dotted","longdash","dotdash")) +
@@ -181,7 +176,7 @@ p_no3 <- ggplot(bqprm_no3_n, aes(sample_date, rolling_average, linetype = sample
   theme_classic(base_size = 10) +
   theme(panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5))
 
-p_mg <- ggplot(bqprm_mg, aes(sample_date, rolling_average, linetype = sample_id)) +
+plot_mg <- ggplot(bqprm_mg, aes(sample_date, rolling_average, linetype = sample_id)) +
   geom_line(size = 0.4) +
   geom_vline(xintercept = hurricane_hugo, linetype = "dashed", linewidth = 0.5) +
   scale_linetype_manual(values = c("solid","dotted","longdash","dotdash")) +
@@ -194,7 +189,7 @@ p_mg <- ggplot(bqprm_mg, aes(sample_date, rolling_average, linetype = sample_id)
   theme_classic(base_size = 10) +
   theme(panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5))
 
-p_ca <- ggplot(bqprm_ca, aes(sample_date, rolling_average, linetype = sample_id)) +
+plot_ca <- ggplot(bqprm_ca, aes(sample_date, rolling_average, linetype = sample_id)) +
   geom_line(size = 0.4) +
   geom_vline(xintercept = hurricane_hugo, linetype = "dashed", linewidth = 0.5) +
   scale_linetype_manual(values = c("solid","dotted","longdash","dotdash")) +
@@ -207,7 +202,7 @@ p_ca <- ggplot(bqprm_ca, aes(sample_date, rolling_average, linetype = sample_id)
   theme_classic(base_size = 10) +
   theme(panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5))
 
-p_nh4 <- ggplot(bqprm_nh4_n, aes(sample_date, rolling_average, linetype = sample_id)) +
+plot_nh4 <- ggplot(bqprm_nh4_n, aes(sample_date, rolling_average, linetype = sample_id)) +
   geom_line(size = 0.4) +
   geom_vline(xintercept = hurricane_hugo, linetype = "dashed", linewidth = 0.5) +
   scale_linetype_manual(values = c("solid","dotted","longdash","dotdash")) +
@@ -221,7 +216,7 @@ p_nh4 <- ggplot(bqprm_nh4_n, aes(sample_date, rolling_average, linetype = sample
   theme(panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5))
 
 # stack and share legend
-(p_k / p_no3 / p_mg / p_ca / p_nh4) + plot_layout(guides = "collect")
+(plot_k / plot_no3 / plot_mg / plot_ca / plot_nh4) + plot_layout(guides = "collect")
 
 ggsave(here("figs", "fig3_replica.png"))
 ```

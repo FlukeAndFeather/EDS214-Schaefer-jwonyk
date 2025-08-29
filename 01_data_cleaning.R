@@ -4,14 +4,6 @@
 ##                                                                            --
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Install & Load Packages
-
-## May need to install the following packages
-# install.packages("tidyverse")
-# install.packages("janitor")
-# install.packages("here")
-# install.packages("lubridate")
-
 ## Load in all necessary packages
 library(tidyverse)
 library(janitor)
