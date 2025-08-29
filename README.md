@@ -10,27 +10,27 @@ This Repository contains the code that will take the data and reproduce the hurr
 
 There are folders that contains the followings:
 
-data: Raw Data
+[data](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/tree/main/data/raw): Raw Data
 
-docs: HTML that holds all the information of finalized products
+[docs](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/tree/main/docs): HTML that holds all the information of finalized products
 
-figs: Data Visualization
+[figs](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/tree/main/figs): Data Visualization
 
-R: Code that holds all the supporting code
+[R](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/tree/main/R): A Script(s) that holds the supporting code
 
-paper: This folder holds the finalized analysis script
+[paper](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/tree/main/paper): This folder holds the finalized analysis script
 
 ### Analysis
 
 ![](figs/flowchart_final.png)
 
-0.  initialization.R
-    -   This script includes all the packages that needs to be install to run this project.
-1.  data_cleaning.R
+0.  [initialization.R](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/blob/main/00_Initialization.R)
+    -   This script includes all the packages that needs to be install to run this project. Please open and go install if needed.
+1.  [data_cleaning.R](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/blob/main/01_data_cleaning.R)
     -   Data cleaning is completed and produce output to output folder from this script.
-2.  plot.R
+2.  [plot.R](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/blob/main/02_plot.R)
     -   This script will produce visualization.
-3.  flowchart_final.R
+3.  [flowchart_final.R](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/blob/main/03_flowchart_final.R)
     -   This script will generate the flowchart that is used for this README.md
 
 ### Output

@@ -14,7 +14,7 @@ execute:
 
 # Install & Load Packages
 
-Please check the following script if you do not have all the packages below installed.
+Please check the following script if you do not have all the packages below installed. Please [check](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/blob/main/00_Initialization.R) here.
 
 ```{r, echo=TRUE}
 ## Load in all the necessary packages
