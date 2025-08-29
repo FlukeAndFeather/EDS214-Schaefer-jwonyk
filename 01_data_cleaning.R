@@ -86,8 +86,8 @@ bqprm_nh4_n <- bqprm %>%
 
 # Export Data
 ## Saving cleaned data frames to a new CSV to data folder (change as needed)
-write_csv(bqprm_k, file = here("data", "cleaned", "bqprm_k.csv"))
-write_csv(bqprm_no3_n, file = here("data", "cleaned", "bqprm_no3_n.csv"))
-write_csv(bqprm_mg, file = here("data", "cleaned", "bqprm_mg.csv"))
-write_csv(bqprm_ca, file = here("data", "cleaned", "bqprm_ca.csv"))
-write_csv(bqprm_nh4_n, file = here("data", "cleaned", "bqprm_nh4_n.csv"))
+write_csv(bqprm_k, file = here("output", "cleaned", "bqprm_k.csv"))
+write_csv(bqprm_no3_n, file = here("output", "cleaned", "bqprm_no3_n.csv"))
+write_csv(bqprm_mg, file = here("output", "cleaned", "bqprm_mg.csv"))
+write_csv(bqprm_ca, file = here("output", "cleaned", "bqprm_ca.csv"))
+write_csv(bqprm_nh4_n, file = here("output", "cleaned", "bqprm_nh4_n.csv"))
