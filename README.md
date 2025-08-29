@@ -4,7 +4,7 @@
 
 This Repository contains the code that will take the data and reproduce the hurricane effects on stream chemistry from the paper “Effects of Hurricane Disturbance on Stream Water Concentrations and Fluxes in Eight Tropical Forest Watersheds of the Luquillo Experimental Forest, Puerto Rico.”
 
-![](figs/original_figure.png){width="344"}
+![](figs/original_figure.png)
 
 ### Content
 
