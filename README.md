@@ -4,7 +4,7 @@
 
 This Repository contains the code that will take the data and reproduce the hurricane effects on stream chemistry from the paper “Effects of Hurricane Disturbance on Stream Water Concentrations and Fluxes in Eight Tropical Forest Watersheds of the Luquillo Experimental Forest, Puerto Rico.”
 
-![](figs/original_figure.png){width="344"}
+![](figs/original_figure.png)
 
 ### Content
 
@@ -22,7 +22,7 @@ There are folders that contains the followings:
 
 ### Analysis
 
-![](figs/flowchart_final.png){width="1053"}
+![](figs/flowchart_final.png)
 
 0.  [initialization.R](https://github.com/jwonyk/EDS214-Schaefer-jwonyk/blob/main/00_Initialization.R)
     -   This script includes all the packages that needs to be install to run this project. Please open and go install if needed.
@@ -35,7 +35,7 @@ There are folders that contains the followings:
 
 ### Output
 
-![Figure 3 Replica](figs/fig3_replica.png){width="728"}
+![Figure 3 Replica](figs/fig3_replica.png)
 
 ### References
 
