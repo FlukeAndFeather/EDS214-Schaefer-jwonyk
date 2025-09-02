@@ -48,9 +48,10 @@
 
 After cloning the repo on Workbench:
 
-[NY] Running the environment initialization script installs all required packages
+[M] Running the environment initialization script installs all required packages
 
 - As discussed, in its own script
+- Your env init script is easy to find and nicely commented.
 
 [M] The analysis script runs without errors
 
@@ -64,6 +65,7 @@ After cloning the repo on Workbench:
 
 [M] The commit history includes at least one merged branch and a resolved merge conflict
 
-[NY] The rendered analysis is accessible via GitHub Pages
+[M] The rendered analysis is accessible via GitHub Pages
 
 - paper_files missing - you know how to fix!
+- Looks great now!
